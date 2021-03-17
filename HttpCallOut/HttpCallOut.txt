@@ -1,0 +1,20 @@
+public class HTTPCallOutApex {
+   	
+	public static HttpResponse getResponse() {
+		
+		Http http = new Http();
+		HttpRequest request = new HttpRequest();
+		request.setEndpoint('https://postman-echo.com/get?foo1=bar1&foo2=bar2');
+		request.setMethod('GET');
+		
+		HttpResponse response = http.send(request);
+		
+		// if the request was successful, then parse the JSON response
+		if (response.getStatusCode() == 200) {
+			Map<String, Object> result = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
+			
+			System.debug(result);
+		}
+		return response;
+	} 
+}
