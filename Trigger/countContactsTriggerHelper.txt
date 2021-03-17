@@ -1,0 +1,34 @@
+public class countContactsTriggerHelper {
+    
+    public static void updateCountOnContacts(List<Contact> contactList)
+    {
+        Set<Id> accountIdSet = new Set<Id>();
+        
+        System.debug('--Contact List--'+contactList);
+        
+        for(Contact conObj : contactList)
+        {
+            accountIdSet.add(conObj.AccountId);
+        }
+        system.debug('--Account Id Set--'+accountIdSet);
+        
+        List<Account> accountList = new List<Account>();
+        List<Account> accountListToUpdate = new List<Account>();
+        
+        accountList = [Select Id,Name,(Select Id,Name from Contacts) from Account where Id IN:accountIdSet];
+        
+        System.debug('--Account List--'+accountList);
+        
+        for(Account acctObj : accountList)
+        {
+            List<Contact> contactAccList = acctObj.Contacts;
+            acctObj.Number_of_Contacts__c = contactAccList.size();
+            accountListToUpdate.add(acctObj);
+        }
+        
+        if(!accountListToUpdate.isEmpty())
+        {
+            update accountListToUpdate;
+        }
+    }
+}
