@@ -1,0 +1,14 @@
+<aura:component controller="listOfAccountsController">
+    <aura:attribute name="AccountList" type="Account[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <lightning:card iconName="standard:work_capacity_usage" title="Accounts">
+        <aura:iteration items="{!v.AccountList}" var="Acct">
+            <tr class="slds-hint-parent">
+                <td data-label="File Name">
+                    <div class="slds-truncate" title="File Name">{!Acct.Name}</div>  
+                </td>
+            </tr>
+        </aura:iteration>
+    </lightning:card>
+</aura:component>

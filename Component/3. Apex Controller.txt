@@ -1,0 +1,13 @@
+public class listOfAccountsController {
+
+    @AuraEnabled
+    public static List<Account> getlistOfAccounts(){
+        
+        List<Account> acctList = new List<Account>();
+    
+        acctList = [Select Id,Name from Account ORDER BY CreatedDate DESC LIMIT 10 ];
+        
+        return acctList;
+    }
+    
+}
