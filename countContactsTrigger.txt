@@ -1,7 +1,0 @@
-trigger countContactsTrigger on Contact (after insert,after delete,after undelete) {
-    
-    List<Contact> contactList = trigger.isDelete?trigger.old:trigger.new;
-    
-    //Passing list of contacts to helper class
-    countContactsTriggerHelper.updateCountOnContacts(contactList);       
-}
